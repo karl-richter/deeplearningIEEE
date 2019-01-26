@@ -188,20 +188,20 @@ def run_inference_on_image(image):
 
 
   def lambda_handler(event, context):
-  results = []
+  #results = []
   print('Running Deep Learning example using Tensorflow library (scaled by Jannik) ...')
   print(event["queryStringParameters"]['image'])
   # load image
-  tmp = tempfile.NamedTemporaryFile()
-  with open(tmp.name, 'wb') as f:
-    s3.Bucket('deeplearning-ieee-bucket-xxx').download_file('cat-pexels-photo-126407.jpeg', tmp.name)
-    tmp.flush()
-
-    (prediction_label, prediction_prob) = run_inference_on_image(tmp.name)[0]
-
-    results.append('(%s, %s)' % (str(prediction_prob), prediction_label))
-
-  print(results)
+  #tmp = tempfile.NamedTemporaryFile()
+  #with open(tmp.name, 'wb') as f:
+  #  s3.Bucket('deeplearning-ieee-bucket-xxx').download_file('cat-pexels-photo-126407.jpeg', tmp.name)
+  #  tmp.flush()
+#
+ #   (prediction_label, prediction_prob) = run_inference_on_image(tmp.name)[0]
+#
+ #   results.append('(%s, %s)' % (str(prediction_prob), prediction_label))
+  
+  #print(results)
   return {
         "statusCode": 200,
         "headers": {
