@@ -41,6 +41,7 @@ import argparse
 import os
 import re
 import tempfile
+import json
 
 import numpy as np
 from six.moves import urllib
@@ -189,6 +190,7 @@ def run_inference_on_image(image):
   def lambda_handler(event, context):
   results = []
   print('Running Deep Learning example using Tensorflow library (scaled by Jannik) ...')
+  print(event["queryStringParameters"]['image'])
   # load image
   tmp = tempfile.NamedTemporaryFile()
   with open(tmp.name, 'wb') as f:
@@ -200,4 +202,10 @@ def run_inference_on_image(image):
     results.append('(%s, %s)' % (str(prediction_prob), prediction_label))
 
   print(results)
-  return results
+  return {
+        "statusCode": 200,
+        "headers": {
+            "Access-Control-Allow-Origin" : "*", 
+        },
+        "body": json.dumps('Hello: ' + event["queryStringParameters"]['image'])
+    }
